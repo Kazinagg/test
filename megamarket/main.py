@@ -11,6 +11,7 @@ import math
 
 
 url = input('введи ссылку на категорию: ')
+# url = 'https://megamarket.ru/catalog/noutbuki/'
 
 
 
@@ -46,7 +47,7 @@ def scrape_page(url):
     driver.get(url)
 
     # Ожидание загрузки JavaScript
-    driver.implicitly_wait(5)  # Указывает время ожидания в секундах
+    # driver.implicitly_wait(5)  # Указывает время ожидания в секундах
 
     # Поиск блоков с информацией о кэшбеке и названии продукта
     cashback_blocks = driver.find_elements(By.CSS_SELECTOR, '.item-block')
@@ -75,14 +76,15 @@ def scrape_page(url):
             # Запись в Excel
             ws.append([product_name, cash, cashback, cashback_procent])
         except NoSuchElementException:
-            # Если информация о кэшбеке не найдена, записываем только название продукта и цену
+            # Если информация о кэшбеке
             print(block, 'без кешбека')
             # ws.append([product_name, cash, 'Информация о кэшбеке не найдена', 'Невозможно рассчитать'])
 
 # Цикл для прохода по всем страницам
 page_number = 1
-while True and page_number < 2: # убери and page_number
+while True: # убери and page_number < 2
     print(page_number)
+    wb.save('products_cashback.xlsx')
     try:
         # Построение URL для текущей страницы
         if (page_number >= 2):
