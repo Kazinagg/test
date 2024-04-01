@@ -5,6 +5,19 @@ from selenium.common.exceptions import NoSuchElementException
 import openpyxl
 import math
 
+
+
+
+
+
+url = input('введи ссылку на категорию: ')
+
+
+
+
+
+
+
 # Функция для удаления пробелов из строки
 def remove_spaces(string):
     return string.replace(" ", "")
@@ -63,18 +76,18 @@ def scrape_page(url):
             ws.append([product_name, cash, cashback, cashback_procent])
         except NoSuchElementException:
             # Если информация о кэшбеке не найдена, записываем только название продукта и цену
-            print('Информация о кэшбеке не найдена')
+            print(block, 'без кешбека')
             # ws.append([product_name, cash, 'Информация о кэшбеке не найдена', 'Невозможно рассчитать'])
 
 # Цикл для прохода по всем страницам
 page_number = 1
-while True and page_number < 3:
+while True and page_number < 2: # убери and page_number
     print(page_number)
     try:
         # Построение URL для текущей страницы
         if (page_number >= 2):
-            page_url = f'https://megamarket.ru/catalog/noutbuki/page-{page_number}/'
-        else: page_url = f'https://megamarket.ru/catalog/noutbuki/'
+            page_url = f'{url}page-{page_number}/'
+        else: page_url = f'{url}'
         
         # Скрейпинг текущей страницы
         scrape_page(page_url)
